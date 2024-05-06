@@ -1,0 +1,19 @@
+.SubmitButton {
+    cursor: pointer;
+    background: transparent;
+    border: 2px solid white;
+    border-radius: 10px;
+    color: white;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 10px;
+
+    transition: .5s ease-in-out;
+}
+
+.SubmitButton:hover {
+    color: var(--leading-color);
+    border-color: var(--leading-color);
+    box-shadow: 0 0 5px inset var(--leading-color);
+}

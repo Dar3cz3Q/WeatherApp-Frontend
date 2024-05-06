@@ -1,0 +1,16 @@
+.Message {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.Message>span {
+    margin-left: 10px;
+}
+
+.Message[data-type="0"] {
+    color: white;
+}
+
+.Message[data-type="1"] {
+    color: red;
+}
