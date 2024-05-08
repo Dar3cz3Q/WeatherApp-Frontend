@@ -19,29 +19,30 @@ Axios.defaults.baseURL = "" + API_PROTOCOL + "://" + API_URL + ":" + API_PORT + 
 
 const mapIcon = <FontAwesomeIcon icon={faMap} />;
 
+function getCurrentCoordinates(setLatitude, setLongitude, setInfoData, setCurrentCoordinatesState) {
+    if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(position => {
+            setLatitude(position.coords.latitude);
+            setLongitude(position.coords.longitude);
+            setCurrentCoordinatesState(true);
+        }, (error) => {
+            console.error(error);
+            setInfoData({ info: error.message, type: 1 });
+        });
+    } else {
+        setInfoData({ info: "Geolocation is not available in your browser. Coordinates must be entered manually", type: 1 });
+    }
+}
+
 export function Forecast() {
     const [latitude, setLatitude] = useState(0);
     const [longitude, setLongitude] = useState(0);
+    const [currentCoordinatesState, setCurrentCoordinatesState] = useState(false);
 
     const [forecastData, setForecastData] = useState(0);
-    const [infoData, setInfoData] = useState({ info: "Loading...", type: 0 });
+    const [infoData, setInfoData] = useState({ info: "Checking permissions...", type: 0 });
 
     const [mapState, setMapState] = useState(false);
-
-    const getCurrentCoordinates = () => {
-        if ("geolocation" in navigator) {
-            navigator.geolocation.getCurrentPosition(position => {
-                setLatitude(position.coords.latitude);
-                setLongitude(position.coords.longitude);
-                getForecastData();
-            }, (error) => {
-                console.error(error);
-                setInfoData({ info: error.message, type: 1 });
-            });
-        } else {
-            setInfoData({ info: "Geolocation is not available in your browser. Coordinates must be entered manually", type: 1 });
-        }
-    }
 
     const changeMapVisibility = () => {
         setMapState(!mapState);
@@ -79,10 +80,12 @@ export function Forecast() {
     }
 
     useEffect(() => {
-        getCurrentCoordinates();
-        getForecastData();
+        getCurrentCoordinates(setLatitude, setLongitude, setInfoData, setCurrentCoordinatesState);
+        if (currentCoordinatesState) {
+            getForecastData();
+        }
         // eslint-disable-next-line
-    }, []);
+    }, [currentCoordinatesState]);
 
     return (
         <div className="Forecast">
