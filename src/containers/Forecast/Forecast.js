@@ -13,8 +13,9 @@ import { faMap } from '@fortawesome/free-solid-svg-icons'
 
 const API_URL = process.env.REACT_APP_API_URL;
 const API_PORT = process.env.REACT_APP_API_PORT;
+const API_PROTOCOL = process.env.REACT_APP_API_PROTOCOL;
 
-Axios.defaults.baseURL = "http://" + API_URL + ":" + API_PORT + "";
+Axios.defaults.baseURL = "" + API_PROTOCOL + "://" + API_URL + ":" + API_PORT + "";
 
 const mapIcon = <FontAwesomeIcon icon={faMap} />;
 
@@ -57,13 +58,19 @@ export function Forecast() {
             );
             setForecastData(result.data);
             setInfoData(0);
-        } catch (err) {
-            if (err.response.data.error) {
-                setInfoData({ info: err.response.data.error, type: 1 });
-            } else {
+        } catch (error) {
+            console.log(error);
+
+            if (error.response) {
+                // Server responded with an error
+                setInfoData({ info: error.response.data.error, type: 1 });
+            } else if (error.request) {
+                // No response from server
                 setInfoData({ info: "Internal server error", type: 1 });
+            } else {
+                // Error while setting up the request
+                setInfoData({ info: "Application error", type: 1 });
             }
-            console.log(err);
         }
     }
 
