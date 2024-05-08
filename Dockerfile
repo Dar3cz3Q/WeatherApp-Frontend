@@ -4,14 +4,13 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm i --production
-RUN npm install react-scripts@3.4.1 -g
+RUN npm i
 
 COPY . . 
 
 RUN npm run build
 
-RUN npm install -g serve
+RUN npm i -g serve
 
 # Render default app port
 EXPOSE 10000
