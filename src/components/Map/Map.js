@@ -2,7 +2,7 @@ import "./Map.css"
 import { MapContainer } from 'react-leaflet/MapContainer'
 import { TileLayer } from 'react-leaflet/TileLayer'
 import { useMapEvents } from 'react-leaflet/hooks'
-import { Marker, Popup } from "react-leaflet"
+import { Marker, Popup } from 'react-leaflet'
 
 export function Map({ position, setLatitude, setLongitude }) {
     const LocationMarker = () => {
