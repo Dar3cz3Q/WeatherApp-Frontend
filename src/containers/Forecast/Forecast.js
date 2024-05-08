@@ -80,6 +80,7 @@ export function Forecast() {
 
     useEffect(() => {
         getCurrentCoordinates();
+        getForecastData();
         // eslint-disable-next-line
     }, []);
 
