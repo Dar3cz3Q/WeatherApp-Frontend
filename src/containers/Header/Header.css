@@ -5,10 +5,20 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 0 10px #ffffff;
+    box-shadow: 0 0 10px var(--font-color);
 }
 
 .Header--Title {
     font-size: 28px;
     font-weight: bold;
+}
+
+.Header--Toggle {
+    display: flex;
+}
+
+.Header--Toggle span {
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: 15px;
 }

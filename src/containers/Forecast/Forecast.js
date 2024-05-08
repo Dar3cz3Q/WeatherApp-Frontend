@@ -19,17 +19,6 @@ Axios.defaults.baseURL = "" + API_PROTOCOL + "://" + API_URL + ":" + API_PORT + 
 
 const mapIcon = <FontAwesomeIcon icon={faMap} />;
 
-function getCurrentCoordinates({ setLatitude, setLongitude }) {
-    if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition(position => {
-            setLatitude(position.coords.latitude);
-            setLongitude(position.coords.longitude);
-        });
-    } else {
-        console.log("Geolocation is not available in your browser.");
-    }
-}
-
 export function Forecast() {
     const [latitude, setLatitude] = useState(0);
     const [longitude, setLongitude] = useState(0);
@@ -38,6 +27,21 @@ export function Forecast() {
     const [infoData, setInfoData] = useState({ info: "Loading...", type: 0 });
 
     const [mapState, setMapState] = useState(false);
+
+    const getCurrentCoordinates = () => {
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition(position => {
+                setLatitude(position.coords.latitude);
+                setLongitude(position.coords.longitude);
+                getForecastData();
+            }, (error) => {
+                console.error(error);
+                setInfoData({ info: error.message, type: 1 });
+            });
+        } else {
+            setInfoData({ info: "Geolocation is not available in your browser. Coordinates must be entered manually", type: 1 });
+        }
+    }
 
     const changeMapVisibility = () => {
         setMapState(!mapState);
@@ -59,7 +63,7 @@ export function Forecast() {
             setForecastData(result.data);
             setInfoData(0);
         } catch (error) {
-            console.log(error);
+            console.error(error);
 
             if (error.response) {
                 // Server responded with an error
@@ -75,8 +79,8 @@ export function Forecast() {
     }
 
     useEffect(() => {
-        getCurrentCoordinates({ setLatitude, setLongitude });
-        getForecastData();
+        getCurrentCoordinates();
+        // eslint-disable-next-line
     }, []);
 
     return (

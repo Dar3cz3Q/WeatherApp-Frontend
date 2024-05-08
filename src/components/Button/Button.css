@@ -1,9 +1,9 @@
 .SubmitButton {
     cursor: pointer;
     background: transparent;
-    border: 2px solid white;
+    border: 2px solid var(--font-color);
     border-radius: 10px;
-    color: white;
+    color: var(--font-color);
     padding: 10px;
     font-size: 18px;
     font-weight: bold;

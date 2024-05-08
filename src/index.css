@@ -5,15 +5,23 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /*Light mode*/
+  --leading-color: rgb(0, 37, 244);
+  --background-color: #fafafa;
+  --font-color: #484b6a;
+}
+
+/*Dark mode*/
+body.dark {
+  --leading-color: rgb(255, 251, 0);
+  --background-color: #474747;
+  --font-color: #ffffff;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
-}
-
-:root {
-  --leading-color: yellow;
 }
 
 * {

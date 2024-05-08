@@ -8,7 +8,7 @@
 }
 
 .Message[data-type="0"] {
-    color: white;
+    color: var(--font-color);
 }
 
 .Message[data-type="1"] {
